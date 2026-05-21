@@ -10,3 +10,4 @@ wheels/
 .venv
 .vscode
 *.xdf
+.DS_Store
