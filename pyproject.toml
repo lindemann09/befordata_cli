@@ -1,0 +1,22 @@
+[project]
+name = "befordata-cli"
+version = "0.1.0"
+description = "Add your description here"
+readme = "README.md"
+authors = [
+    { name = "Oliver Lindemann", email = "lindemann@essb.eur.nl" }
+]
+requires-python = ">=3.12"
+dependencies = [
+    "befordata>=0.4.5",
+    "icecream>=2.2.0",
+    "pandas>=3.0.3",
+    "pyxdf>=1.17.4",
+]
+
+[build-system]
+requires = ["uv_build>=0.11.15,<0.12.0"]
+build-backend = "uv_build"
+
+[project.scripts]
+befordata_cli = "befordata_cli.cli:run"
