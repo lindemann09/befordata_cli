@@ -31,7 +31,10 @@ def xdf_info(filepath: str, info_dict:bool = False, streams: List[str] | None = 
         name = stream['info']['name'][0]
         if channel_ids is None or cnt in channel_ids:
             shape = stream['time_series'].shape
-            stream_time = stream['time_stamps'][-1] - stream['time_stamps'][0]
+            if shape[0] > 1:
+                stream_time = stream['time_stamps'][-1] - stream['time_stamps'][0]
+            else:
+                stream_time = 0
             print(f"  {cnt}: {name}   ---   shape: {shape[0]} x {shape[1]}, duration {stream_time:.2f} seconds")
 
     if info_dict:
@@ -88,7 +91,6 @@ def convert_data(
                 print(f"    writing {fl}")
                 feather.write_feather(tbl, fl, compression="lz4", compression_level=6)
             if csv:
-                ic(compression)
                 suffix = ".csv" if compression is None else f".csv.{compression}"
                 fl = new_path.with_suffix(suffix)
                 print(f"    writing {fl}")

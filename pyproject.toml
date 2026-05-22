@@ -1,7 +1,7 @@
 [project]
 name = "befordata-cli"
 readme = "README.md"
-version = "0.1.4"
+version = "0.1.5"
 description = "Command-line interface for befordata"
 authors = [
     { name = "Oliver Lindemann", email = "lindemann@essb.eur.nl" }
