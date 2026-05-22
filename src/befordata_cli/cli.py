@@ -18,11 +18,6 @@ def run() -> None:
     parser.add_argument("FILE", default="", help="data file")
 
     parser.add_argument(
-        "-o", "--output",
-        metavar="dest",
-        help="Output file",
-    )
-    parser.add_argument(
         "-i", "--info",
         action="store_true",
         default=False,
