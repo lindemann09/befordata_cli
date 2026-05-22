@@ -1,8 +1,5 @@
-"""Creating course manuals and tutor instruction with Quarto
+from importlib.metadata import version
 
-Oliver Lindemann
-"""
-
-__version__ = "0.1.0"
+__version__ = version("befordata_cli")
 __author__ = "Oliver Lindemann"
 
