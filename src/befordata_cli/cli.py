@@ -1,11 +1,8 @@
 import argparse
 from os.path import isfile
 
-from befordata import xdf
-from icecream import ic
-
 from . import __version__
-from .xdf import convert_data, load_xdf, xdf_info
+from .xdf import convert_data, xdf_info
 
 
 def run() -> None:
