@@ -2,9 +2,10 @@ import argparse
 from os.path import isfile
 
 from befordata import xdf
+from icecream import ic
 
 from . import __version__
-from .xdf import load_xdf, xdf_info
+from .xdf import convert_data, load_xdf, xdf_info
 
 
 def run() -> None:
@@ -28,8 +29,9 @@ def run() -> None:
         "-i", "--info",
         action="store_true",
         default=False,
-        help="Print detailed stream info",
+        help="Print detailed XDF stream info",
     )
+
     parser.add_argument(
         "--arrow",
         action="store_true",
@@ -42,6 +44,12 @@ def run() -> None:
         default=False,
         help="Convert file to CSV format (.csv)",
     )
+    parser.add_argument(
+        "-s", "--streams",
+        nargs="+",
+        metavar="stream",
+        help="XDF stream(s) to process (stream names or stream ids)",
+    )
 
     args = parser.parse_args()
 
@@ -50,22 +58,14 @@ def run() -> None:
         parser.print_help()
         exit()
 
-
     if not isfile(args.FILE):
         print(f"File {args.FILE} does not exist.")
 
     elif args.FILE.endswith(".xdf"):
-        xdf_info(args.FILE, info_dict=args.info)
+        xdf_info(args.FILE, info_dict=args.info, streams=args.streams)
 
         if args.arrow or args.csv:
-            streams, header = load_xdf(args.FILE)
-            rec = xdf.before_record(streams, args.force_stream, 1000)
-
-            if args.arrow:
-                print(f"Converting to Arrow")
-
-            if args.csv:
-                print(f"Converting to CSV")
+            convert_data(args.FILE, streams=args.streams, arrow=args.arrow, csv=args.csv)
 
 
 if __name__ == "__main__":

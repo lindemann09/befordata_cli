@@ -1,6 +1,6 @@
 [project]
 name = "befordata-cli"
-version = "0.1.0"
+version = "0.1.2"
 description = "Add your description here"
 readme = "README.md"
 authors = [
@@ -8,9 +8,9 @@ authors = [
 ]
 requires-python = ">=3.12"
 dependencies = [
-    "befordata>=0.4.5",
+    "befordata>=0.4.7",
     "icecream>=2.2.0",
-    "pandas>=3.0.3",
+    "pyarrow>=24.0.0",
     "pyxdf>=1.17.4",
 ]
 
