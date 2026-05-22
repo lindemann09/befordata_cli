@@ -21,21 +21,21 @@ wheels = [
 
 [[package]]
 name = "befordata"
-version = "0.4.7"
+version = "0.4.8"
 source = { registry = "https://pypi.org/simple" }
 dependencies = [
     { name = "numpy" },
     { name = "pandas" },
     { name = "scipy" },
 ]
-sdist = { url = "https://files.pythonhosted.org/packages/2c/e7/c85b28a10c3441eb0fa8116829400aa900034f11e30048525215d88c5a3d/befordata-0.4.7.tar.gz", hash = "sha256:2eedea4a7543c0c46803fc6e03d26766bd26c9f9028a7beee0cb22f389a96913", size = 18091, upload-time = "2026-05-22T11:19:33.104Z" }
+sdist = { url = "https://files.pythonhosted.org/packages/7e/fa/667ef7536845630e701fb76ec4d83548c1149086b9b2ebe7132e56fc12da/befordata-0.4.8.tar.gz", hash = "sha256:abb0faa669d1694ba7e9de8f881edf749e248fab50672546a3e642473b49f22d", size = 18107, upload-time = "2026-05-22T19:43:37.24Z" }
 wheels = [
-    { url = "https://files.pythonhosted.org/packages/ed/e3/a46b5491ca16d4b30c53a895374a48c4de946a101e0beb422453e3314e3b/befordata-0.4.7-py3-none-any.whl", hash = "sha256:dbb645d15c6b382cf7462116b84edf85b58deb6d7ff56279518070a3b453fc7c", size = 21287, upload-time = "2026-05-22T11:19:34.293Z" },
+    { url = "https://files.pythonhosted.org/packages/2c/4d/b87c4263f05795451426e937250e2f08b0f85d5066e568cf47285e5f64d0/befordata-0.4.8-py3-none-any.whl", hash = "sha256:22687198406b39b1717fff30a729884f670b0c3186e528a4a0246fc41f73f6d4", size = 21297, upload-time = "2026-05-22T19:43:36.224Z" },
 ]
 
 [[package]]
 name = "befordata-cli"
-version = "0.1.3"
+version = "0.1.4.dev0"
 source = { editable = "." }
 dependencies = [
     { name = "befordata" },
@@ -46,7 +46,7 @@ dependencies = [
 
 [package.metadata]
 requires-dist = [
-    { name = "befordata", specifier = ">=0.4.7" },
+    { name = "befordata", specifier = ">=0.4.8" },
     { name = "icecream", specifier = ">=2.2.0" },
     { name = "pyarrow", specifier = ">=24.0.0" },
     { name = "pyxdf", specifier = ">=1.17.4" },

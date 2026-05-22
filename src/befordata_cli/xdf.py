@@ -30,9 +30,9 @@ def xdf_info(filepath: str, info_dict:bool = False, streams: List[str] | None = 
     for cnt, stream in enumerate(xdf_streams):
         name = stream['info']['name'][0]
         if channel_ids is None or cnt in channel_ids:
-            n = len(stream['time_series'])
+            shape = stream['time_series'].shape
             stream_time = stream['time_stamps'][-1] - stream['time_stamps'][0]
-            print(f"  {cnt}: {name}   ---   {n} samples, duration {stream_time:.2f} seconds")
+            print(f"  {cnt}: {name}   ---   shape: {shape[0]} x {shape[1]}, duration {stream_time:.2f} seconds")
 
     if info_dict:
         for cnt, stream in enumerate(xdf_streams):
@@ -46,6 +46,7 @@ def convert_data(
     streams: List[str] | None = None,
     arrow: bool = False,
     csv: bool = False,
+    compression: str | None = None,
 ):
     """
     Convert xdf streams to Arrow and/or CSV format.
@@ -55,7 +56,11 @@ def convert_data(
         streams: the streams to convert
         arrow: if True, convert to Arrow format
         csv: if True, convert to CSV format
+        compression: compression method for CSV output (e.g., 'gz', 'bz2','xz')
     """
+    compression_options = [None, 'gz', 'bz2','xz']
+    if compression not in compression_options:
+        raise ValueError(f"Invalid compression option: {compression}. Valid options are: {compression_options}")
 
     if not arrow and not csv:
         print("No conversion format specified.")
@@ -79,7 +84,12 @@ def convert_data(
             dat = xdf.data(xdf_streams, cnt)
             if arrow:
                 tbl = pa.Table.from_pandas(dat, preserve_index=False)
-                feather.write_feather(tbl, new_path.with_suffix(".arrow"), compression="lz4", compression_level=6)
+                fl = new_path.with_suffix('.arrow')
+                print(f"    writing {fl}")
+                feather.write_feather(tbl, fl, compression="lz4", compression_level=6)
             if csv:
-                dat.to_csv(new_path.with_suffix(".csv"), index=False)
-
+                ic(compression)
+                suffix = ".csv" if compression is None else f".csv.{compression}"
+                fl = new_path.with_suffix(suffix)
+                print(f"    writing {fl}")
+                dat.to_csv(fl, index=False, compression='infer')

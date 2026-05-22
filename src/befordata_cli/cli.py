@@ -30,6 +30,7 @@ def run() -> None:
         default=False,
         help="Convert file to Arrow format (.arrow)",
     )
+
     parser.add_argument(
         "--csv",
         action="store_true",
@@ -41,6 +42,13 @@ def run() -> None:
         nargs="+",
         metavar="stream",
         help="XDF stream(s) to process (stream names or stream ids)",
+    )
+
+    parser.add_argument(
+        "-z",
+        action="store_true",
+        default=False,
+        help="Compress CSV file (.csv.gz)",
     )
 
     args = parser.parse_args()
@@ -57,7 +65,12 @@ def run() -> None:
         xdf_info(args.FILE, info_dict=args.info, streams=args.streams)
 
         if args.arrow or args.csv:
-            convert_data(args.FILE, streams=args.streams, arrow=args.arrow, csv=args.csv)
+            if args.z:
+                compression = "gz"
+            else:
+                compression = None
+            convert_data(args.FILE, streams=args.streams, arrow=args.arrow,
+                         csv=args.csv, compression=compression)
 
 
 if __name__ == "__main__":
